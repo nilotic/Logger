@@ -5,5 +5,5 @@ import SwiftSyntaxMacros
 
 @main
 struct LoggerPlugin: CompilerPlugin {
-    let providingMacros: [Macro.Type] = [LoggerMacro.self]
+    let providingMacros: [Macro.Type] = [LoggerMacro.self, LoggerTypeMacro.self]
 }

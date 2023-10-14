@@ -18,9 +18,7 @@
      // Expand to
      {
          #if DEBUG
-         if #available (iOS 17, *) {
-             Logger(subsystem: "Kurly", category: "").debug("\("Message", privacy: .private)")
-         }
+         Logger(subsystem: "Kurly", category: "").debug("\("Message", privacy: .private)")
          #endif
      }()
 
@@ -32,4 +30,11 @@
      #Logger("Message")
      #Logger("Message", "MarketKurly")
      #Logger("Message", "MarketKurly", "Network")
-     #Logger("Message", "MarketKurly", "Network", .info)
+     #Logger("Message", "MarketKurly", "Network", .public)
+     #Logger("Message", "MarketKurly", "Network", .public, .info)
+   
+     
+     #Logger("Message Info",  .info)
+     #Logger("Message Debug", .debug)
+     #Logger("Message Error", .error)
+     #Logger("Message Fault", .fault)

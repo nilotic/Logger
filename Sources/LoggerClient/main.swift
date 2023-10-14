@@ -1,12 +1,16 @@
-import OSLog
 import Logger
+import OSLog
 
 func foo() {
     #Logger("Message")
+    #Logger("Message", "MarketKurly")
+    #Logger("Message", "MarketKurly", "Network")
+    #Logger("Message", "MarketKurly", "Network", .info)
+    #Logger("Message", "MarketKurly", "Network", .info, .public)
     
-    #Logger("Message", "KurlyLog")
     
-    #Logger("Message", "KurlyDelivery", "Network")
-    
-    #Logger("Message", "Smile", "UI", .info)
+    #Logger("Message Info",  .info)
+    #Logger("Message Debug", .debug)
+    #Logger("Message Error", .error)
+    #Logger("Message Fault", .fault)
 }
