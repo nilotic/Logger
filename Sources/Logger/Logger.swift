@@ -2,7 +2,6 @@
 // https://docs.swift.org/swift-book
 
 import OSLog
-import os.log
 
 /**
      A macro makes Logger run only in DEBUG

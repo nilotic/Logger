@@ -2,7 +2,6 @@ import SwiftCompilerPlugin
 import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
-import OSLog
 
 /**
  Implementation of the `Logger` macro, which takes an expression  of any type and produces a tuple containing the value of that expression and the source code that produced the value. For example
