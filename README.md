@@ -18,7 +18,9 @@
      // Expand to
      {
          #if DEBUG
-         Logger(subsystem: "Kurly", category: "").debug("\("Message", privacy: .private)")
+         if #available (iOS 15, *) {
+             Logger(subsystem: "Kurly", category: "").debug("\\("Message", privacy: .private)")
+         }
          #endif
      }()
 
