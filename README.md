@@ -35,7 +35,6 @@
      #Logger("Message", "MarketKurly", "Network", .public)
      #Logger("Message", "MarketKurly", "Network", .public, .info)
    
-     
      #Logger("Message Info",  .info)
      #Logger("Message Debug", .debug)
      #Logger("Message Error", .error)

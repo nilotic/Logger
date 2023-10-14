@@ -1,5 +1,5 @@
-import Logger
 import OSLog
+import Logger
 
 func foo() {
     #Logger("Message")
@@ -7,7 +7,6 @@ func foo() {
     #Logger("Message", "MarketKurly", "Network")
     #Logger("Message", "MarketKurly", "Network", .info)
     #Logger("Message", "MarketKurly", "Network", .info, .public)
-    
     
     #Logger("Message Info",  .info)
     #Logger("Message Debug", .debug)
