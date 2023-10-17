@@ -47,13 +47,10 @@ public macro Logger(_ message: String, _ subsystem: String = "Kurly", _ category
         - type: The message’s log level, which determines the severity of the message and whether the system persists it to disk. For possible values, see OSLogType.
 
  
-    ```
+    ```swift
     #Logger("Message Debug", .debug)
-    ```
- 
- will expand to
- 
-     ```swift
+    
+     // will expand to
      {
          #if DEBUG
          if #available (iOS 15, *) {
@@ -61,7 +58,7 @@ public macro Logger(_ message: String, _ subsystem: String = "Kurly", _ category
          }
          #endif
      }()
-     ```
+    ```
  
  
     # Example #
