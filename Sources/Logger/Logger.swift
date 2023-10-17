@@ -13,13 +13,10 @@ import OSLog
         - type: The message’s log level, which determines the severity of the message and whether the system persists it to disk. For possible values, see OSLogType.
 
  
-    ```
+    ```swift
     #Logger("Message")
-    ```
- 
- will expand to
- 
-     ```
+    
+    // will expand to
      {
          #if DEBUG
          if #available (iOS 15, *) {
@@ -27,11 +24,11 @@ import OSLog
          }
          #endif
      }()
-     ```
  
+    ```
  
     # Example #
-     ```
+     ```swift
      #Logger("Message")
      #Logger("Message", "MarketKurly")
      #Logger("Message", "MarketKurly", "Network")
@@ -56,7 +53,7 @@ public macro Logger(_ message: String, _ subsystem: String = "Kurly", _ category
  
  will expand to
  
-     ```
+     ```swift
      {
          #if DEBUG
          if #available (iOS 15, *) {
@@ -68,7 +65,7 @@ public macro Logger(_ message: String, _ subsystem: String = "Kurly", _ category
  
  
     # Example #
-     ```
+     ```swift
      #Logger("Message Info",  .info)
      #Logger("Message Debug", .debug)
      #Logger("Message Error", .error)

@@ -4,13 +4,10 @@ import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 /**
- Implementation of the `Logger` macro, which takes an expression  of any type and produces a tuple containing the value of that expression and the source code that produced the value. For example
-    
+    ```swift
      #Logger("Message")
  
- will expand to
- 
-     ```
+     // will expand to
      {
          #if DEBUG
          if #available (iOS 15, *) {
@@ -18,7 +15,8 @@ import SwiftSyntaxMacros
          }
          #endif
      }()
-     ```
+ 
+    ```
  */
 
 public struct LoggerMacro: ExpressionMacro {
