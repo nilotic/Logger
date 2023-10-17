@@ -16,7 +16,7 @@ import OSLog
     ```swift
     #Logger("Message")
     
-    // will expand to
+     // will expand to
      {
          #if DEBUG
          if #available (iOS 15, *) {
@@ -58,8 +58,8 @@ public macro Logger(_ message: String, _ subsystem: String = "Kurly", _ category
          }
          #endif
      }()
-    ```
  
+    ```
  
     # Example #
      ```swift
