@@ -13,8 +13,8 @@ import OSLog
         - type: The message’s log level, which determines the severity of the message and whether the system persists it to disk. For possible values, see OSLogType.
 
  
-    ```swift
-    #Logger("Message")
+     ```swift
+     #Logger("Message")
     
      // will expand to
      {
@@ -24,15 +24,14 @@ import OSLog
          }
          #endif
      }()
+     ```
  
-    ```
- 
-    # Example #
+     # Example #
      ```swift
-     #Logger("Message")
-     #Logger("Message", "MarketKurly")
-     #Logger("Message", "MarketKurly", "Network")
-     #Logger("Message", "MarketKurly", "Network", .info)
+      #Logger("Message")
+      #Logger("Message", "MarketKurly")
+      #Logger("Message", "MarketKurly", "Network")
+      #Logger("Message", "MarketKurly", "Network", .info)
      ```
 */
 @freestanding(expression)
@@ -47,8 +46,8 @@ public macro Logger(_ message: String, _ subsystem: String = "Kurly", _ category
         - type: The message’s log level, which determines the severity of the message and whether the system persists it to disk. For possible values, see OSLogType.
 
  
-    ```swift
-    #Logger("Message Debug", .debug)
+     ```swift
+     #Logger("Message Debug", .debug)
     
      // will expand to
      {
@@ -58,16 +57,15 @@ public macro Logger(_ message: String, _ subsystem: String = "Kurly", _ category
          }
          #endif
      }()
- 
-    ```
+     ```
  
     # Example #
-     ```swift
-     #Logger("Message Info",  .info)
-     #Logger("Message Debug", .debug)
-     #Logger("Message Error", .error)
-     #Logger("Message Fault", .fault)
-     ```
+    ```swift
+      #Logger("Message Info",  .info)
+      #Logger("Message Debug", .debug)
+      #Logger("Message Error", .error)
+      #Logger("Message Fault", .fault)
+    ```
 */
 @freestanding(expression)
 public macro Logger(_ message: String, _ type: OSLogType = .info) = #externalMacro(module: "LoggerMacros", type: "LoggerTypeMacro")
