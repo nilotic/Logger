@@ -38,7 +38,7 @@ import OSLog
      ```
 */
 @freestanding(expression)
-public macro Logger(_ message: OSLogMessage, _ subsystem: String = "Kurly", _ category: String = "", _ type: OSLogType = .info) = #externalMacro(module: "LoggerMacros", type: "LoggerMacro")
+public macro Logger(_ message: OSLogMessage, _ subsystem: String = "Kurly", _ category: String = "", _ type: OSLogType = .debug) = #externalMacro(module: "LoggerMacros", type: "LoggerMacro")
 
 
 /**
@@ -51,7 +51,7 @@ public macro Logger(_ message: OSLogMessage, _ subsystem: String = "Kurly", _ ca
   
  
     ```swift
-    #Logger("Message", .debug)
+    #Logger("Message")
      
     // will expand to
     {
@@ -82,4 +82,4 @@ public macro Logger(_ message: OSLogMessage, _ subsystem: String = "Kurly", _ ca
     ```
 */
 @freestanding(expression)
-public macro Logger(_ message: OSLogMessage, _ type: OSLogType = .info) = #externalMacro(module: "LoggerMacros", type: "LoggerTypeMacro")
+public macro Logger(_ message: OSLogMessage, _ type: OSLogType = .debug) = #externalMacro(module: "LoggerMacros", type: "LoggerTypeMacro")

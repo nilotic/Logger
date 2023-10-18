@@ -6,7 +6,7 @@ import SwiftSyntaxMacros
 /**
  
     ```swift
-    #Logger("Message", .debug)
+    #Logger("Message")
      
     // will expand to
     {
