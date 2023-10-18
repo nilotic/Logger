@@ -13,18 +13,21 @@ import OSLog
         - type: The message’s log level, which determines the severity of the message and whether the system persists it to disk. For possible values, see OSLogType.
 
  
+
      ```swift
-     #Logger("Message")
-    
+     #Logger("Message", "MarketKurly", "Network", .info)
+
      // will expand to
      {
          #if DEBUG
          if #available (iOS 15, *) {
-             Logger(subsystem: "Kurly", category: "").debug("\("Message", privacy: .private)")
+             Logger(subsystem: "MarketKurly", category: "Network").info("Message")
          }
          #endif
      }()
+
      ```
+ 
  
      # Example #
      ```swift
@@ -35,7 +38,7 @@ import OSLog
      ```
 */
 @freestanding(expression)
-public macro Logger(_ message: String, _ subsystem: String = "Kurly", _ category: String = "", _ type: OSLogType = .info, _ privacy: OSLogPrivacy = .private) = #externalMacro(module: "LoggerMacros", type: "LoggerMacro")
+public macro Logger(_ message: OSLogMessage, _ subsystem: String = "Kurly", _ category: String = "", _ type: OSLogType = .info) = #externalMacro(module: "LoggerMacros", type: "LoggerMacro")
 
 
 /**
@@ -45,27 +48,38 @@ public macro Logger(_ message: String, _ subsystem: String = "Kurly", _ category
         - message: The interpolated string that the logger writes to the log. Each of the message’s interpolations can specify individual formatting and privacy options. For more information, see Message Argument Formatters.
         - type: The message’s log level, which determines the severity of the message and whether the system persists it to disk. For possible values, see OSLogType.
 
+  
  
-     ```swift
-     #Logger("Message Debug", .debug)
-    
-     // will expand to
-     {
-         #if DEBUG
-         if #available (iOS 15, *) {
-             Logger(subsystem: "Kurly", category: "").debug("\("Message", privacy: .private)")
-         }
-         #endif
-     }()
-     ```
+    ```swift
+    #Logger("Message", .debug)
+     
+    // will expand to
+    {
+        #if DEBUG
+        if #available (iOS 15, *) {
+            Logger(subsystem: "Kurly", category: "").debug("Message")
+        }
+        #endif
+    }()
+ 
+    ```
+ 
  
     # Example #
+ 
     ```swift
-      #Logger("Message Info",  .info)
-      #Logger("Message Debug", .debug)
-      #Logger("Message Error", .error)
-      #Logger("Message Fault", .fault)
+    // OSLogType
+    #Logger("Mesage  Info",  .info)
+    #Logger("Message Debug", .debug)
+    #Logger("Message Error", .error)
+    #Logger("Message Fault", .fault)
+ 
+ 
+    // OSLogPrivacy
+    #Logger("\("(Public)  Error Message", privacy: .public)",  .info)
+    #Logger("\("(Private) Error Message", privacy: .private)", .error)
+
     ```
 */
 @freestanding(expression)
-public macro Logger(_ message: String, _ type: OSLogType = .info) = #externalMacro(module: "LoggerMacros", type: "LoggerTypeMacro")
+public macro Logger(_ message: OSLogMessage, _ type: OSLogType = .info) = #externalMacro(module: "LoggerMacros", type: "LoggerTypeMacro")

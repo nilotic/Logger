@@ -18,7 +18,7 @@ final class LoggerTests: XCTestCase {
                                 {
                                     #if DEBUG
                                     if #available (iOS 15, *) {
-                                        Logger(subsystem: "Kurly", category: "").debug("\\("Message", privacy: .private)")
+                                        Logger(subsystem: "Kurly", category: "").debug("Message")
                                     }
                                     #endif
                                 }()
@@ -45,7 +45,34 @@ final class LoggerTests: XCTestCase {
                                 {
                                     #if DEBUG
                                     if #available (iOS 15, *) {
-                                        Logger(subsystem: "Kurly", category: "").info("\\("Message", privacy: .private)")
+                                        Logger(subsystem: "Kurly", category: "").info("Message")
+                                    }
+                                    #endif
+                                }()
+                            }
+                            """
+        
+        assertMacroExpansion(originalSource, expandedSource: expandedSource, macros: ["Logger": LoggerTypeMacro.self])
+        
+        #else
+        throw XCTSkip("macros are only supported when running tests for the host platform")
+        #endif
+    }
+    
+    func testOSLogPrivacy() throws {
+        #if canImport(LoggerMacros)
+        let originalSource = """
+                            func foo() {
+                                #Logger("\\("(Public)  Error Message", privacy: .public)", .info)
+                            }
+                            """
+        
+        let expandedSource = """
+                            func foo() {
+                                {
+                                    #if DEBUG
+                                    if #available (iOS 15, *) {
+                                        Logger(subsystem: "Kurly", category: "").info("\\("(Public)  Error Message", privacy: .public)")
                                     }
                                     #endif
                                 }()
