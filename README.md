@@ -12,7 +12,7 @@
 <br>
 
 ## Features
-    
+```swift
     #Logger("Message")
      
     // will expand to
@@ -23,12 +23,12 @@
         }
         #endif
     }()
-
+```
 <br>
 <br>
  
 ## Example
-    
+```swift
     #Logger("Message")
     #Logger("Message", "MarketKurly")
     #Logger("Message", "MarketKurly", "Network")
@@ -45,3 +45,4 @@
     // OSLogPrivacy
     #Logger("\("(Public)  Error Message", privacy: .public)",  .info)
     #Logger("\("(Private) Error Message", privacy: .private)", .error)
+```
