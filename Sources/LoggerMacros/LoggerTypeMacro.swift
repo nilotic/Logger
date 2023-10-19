@@ -24,8 +24,6 @@ public struct LoggerTypeMacro: ExpressionMacro {
     public static func expansion(of node: some FreestandingMacroExpansionSyntax, in context: some MacroExpansionContext) throws -> ExprSyntax {
         var message = ""
         var privacy = ""
-        let subsystem = ""
-        let category = ""
         var type = "debug"
         
         node.argumentList.enumerated().forEach { i, element in
