@@ -1,7 +1,10 @@
 import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
 import XCTest
+
+#if canImport(LoggerMacros)
 import LoggerMacros
+#endif
 
 final class LoggerTests: XCTestCase {
     
