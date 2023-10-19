@@ -9,7 +9,7 @@ final class LoggerTests: XCTestCase {
         #if canImport(LoggerMacros)
         let originalSource = """
                             func foo() {
-                                #Logger("Message")
+                                #Logger("Message", "SwiftUI", "Task", .info)
                             }
                             """
         
@@ -18,7 +18,7 @@ final class LoggerTests: XCTestCase {
                                 {
                                     #if DEBUG
                                     if #available (iOS 15, *) {
-                                        Logger(subsystem: "Kurly", category: "").debug("Message")
+                                        Logger(subsystem: "SwiftUI", category: "Task").info("Message")
                                     }
                                     #endif
                                 }()
@@ -45,7 +45,7 @@ final class LoggerTests: XCTestCase {
                                 {
                                     #if DEBUG
                                     if #available (iOS 15, *) {
-                                        Logger(subsystem: "Kurly", category: "").info("Message")
+                                        Logger().info("Message")
                                     }
                                     #endif
                                 }()
@@ -72,7 +72,7 @@ final class LoggerTests: XCTestCase {
                                 {
                                     #if DEBUG
                                     if #available (iOS 15, *) {
-                                        Logger(subsystem: "Kurly", category: "").info("\\("(Public)  Error Message", privacy: .public)")
+                                        Logger().info("\\("(Public)  Error Message", privacy: .public)")
                                     }
                                     #endif
                                 }()

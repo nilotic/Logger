@@ -15,13 +15,13 @@ import OSLog
  
 
      ```swift
-     #Logger("Message", "MarketKurly", "Network", .info)
+     #Logger("Message", "SwiftUI", "Task", .info)
 
      // will expand to
      {
          #if DEBUG
          if #available (iOS 15, *) {
-             Logger(subsystem: "MarketKurly", category: "Network").info("Message")
+             Logger(subsystem: "SwiftUI", category: "Task").info("Message")
          }
          #endif
      }()
@@ -32,13 +32,13 @@ import OSLog
      # Example #
      ```swift
       #Logger("Message")
-      #Logger("Message", "MarketKurly")
-      #Logger("Message", "MarketKurly", "Network")
-      #Logger("Message", "MarketKurly", "Network", .info)
+      #Logger("Message", "SwiftUI")
+      #Logger("Message", "SwiftUI", "Task")
+      #Logger("Message", "SwiftUI", "Task", .info)
      ```
 */
 @freestanding(expression)
-public macro Logger(_ message: OSLogMessage, _ subsystem: String = "Kurly", _ category: String = "", _ type: OSLogType = .debug) = #externalMacro(module: "LoggerMacros", type: "LoggerMacro")
+public macro Logger(_ message: OSLogMessage, _ subsystem: String = "", _ category: String = "", _ type: OSLogType = .debug) = #externalMacro(module: "LoggerMacros", type: "LoggerMacro")
 
 
 /**
@@ -57,7 +57,7 @@ public macro Logger(_ message: OSLogMessage, _ subsystem: String = "Kurly", _ ca
     {
         #if DEBUG
         if #available (iOS 15, *) {
-            Logger(subsystem: "Kurly", category: "").debug("Message")
+            Logger().debug("Message")
         }
         #endif
     }()

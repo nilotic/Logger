@@ -5,13 +5,13 @@ import SwiftSyntaxMacros
 
 /**
     ```swift
-    #Logger("Message", "MarketKurly", "Network", .info)
+    #Logger("Message", "SwiftUI", "Task", .info)
  
     // will expand to
     {
         #if DEBUG
         if #available (iOS 15, *) {
-            Logger(subsystem: "MarketKurly", category: "Network").info("Message")
+            Logger(subsystem: "SwiftUI", category: "Task").info("Message")
         }
         #endif
     }()
@@ -24,8 +24,8 @@ public struct LoggerMacro: ExpressionMacro {
     public static func expansion(of node: some FreestandingMacroExpansionSyntax, in context: some MacroExpansionContext) throws -> ExprSyntax {
         var message = ""
         var privacy = ""
-        var subsystem = "Kurly"
-        var category = ""
+        var subsystem = ""
+        var category = "Default"
         var type = "debug"
         
         node.argumentList.enumerated().forEach { i, element in

@@ -19,7 +19,7 @@
     {
         #if DEBUG
         if #available (iOS 15, *) {
-            Logger(subsystem: "Kurly", category: "").debug("Message")
+            Logger().debug("Message")
         }
         #endif
     }()
@@ -30,9 +30,9 @@
 ## Example
 ```swift
     #Logger("Message")
-    #Logger("Message", "MarketKurly")
-    #Logger("Message", "MarketKurly", "Network")
-    #Logger("Message", "MarketKurly", "Network", .info)
+    #Logger("Message", "SwiftUI")
+    #Logger("Message", "SwiftUI", "Task")
+    #Logger("Message", "SwiftUI", "Task", .info)
     
     
     // OSLogType
