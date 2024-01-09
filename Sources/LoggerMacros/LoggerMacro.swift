@@ -23,6 +23,7 @@ public struct LoggerMacro: ExpressionMacro {
     
     public static func expansion(of node: some FreestandingMacroExpansionSyntax, in context: some MacroExpansionContext) throws -> ExprSyntax {
         var message = ""
+        var stringLiteralMessage = ""
         var privacy = ""
         var subsystem = ""
         var category = "Default"
@@ -50,6 +51,9 @@ public struct LoggerMacro: ExpressionMacro {
                             }
                         }
                     }
+                    
+                } else if let memberAccessExprSyntax = element.expression.as(MemberAccessExprSyntax.self) {
+                    stringLiteralMessage = memberAccessExprSyntax.description
                 }
                 
             case 1:
@@ -69,7 +73,13 @@ public struct LoggerMacro: ExpressionMacro {
             }
         }
         
-        let logMessage = privacy.isEmpty ? "\"\(message)\"" : "\"\\(\"\(message)\", privacy: .\(privacy))\""
+        var logMessage: String {
+            if message.isEmpty, !stringLiteralMessage.isEmpty {
+                message = "\\(\(stringLiteralMessage))"
+            }
+            
+            return privacy.isEmpty ? "\"\(message)\"" : "\"\\(\"\(message)\", privacy: .\(privacy))\""
+        }
         
         let stringLiteral = """
                             {

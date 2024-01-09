@@ -38,7 +38,7 @@ import OSLog
      ```
 */
 @freestanding(expression)
-public macro Logger(_ message: OSLogMessage, _ subsystem: String = "", _ category: String = "", _ type: OSLogType = .debug) = #externalMacro(module: "LoggerMacros", type: "LoggerMacro")
+public macro Logger(_ message: String, _ subsystem: String = "", _ category: String = "", _ type: OSLogType = .debug) = #externalMacro(module: "LoggerMacros", type: "LoggerMacro")
 
 
 /**
