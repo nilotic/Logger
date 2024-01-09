@@ -8,11 +8,13 @@ import SwiftSyntaxMacros
     #Logger("Message", "SwiftUI", "Task", .info)
  
     // will expand to
-    #if DEBUG
+    {
+        #if DEBUG
         if #available (iOS 15, *) {
             Logger(subsystem: "SwiftUI", category: "Task").info("Message")
         }
-    #endif
+        #endif
+    }()
  
     ```
  */
@@ -80,11 +82,13 @@ public struct LoggerMacro: ExpressionMacro {
         }
         
         let stringLiteral = """
+                            {
                             #if DEBUG
-                                if #available (iOS 15, *) {
-                                    Logger(subsystem: \"\(subsystem)\", category: \"\(category)\").\(type)(\(logMessage))
-                                }
+                            if #available (iOS 15, *) {
+                                Logger(subsystem: \"\(subsystem)\", category: \"\(category)\").\(type)(\(logMessage))
+                            }
                             #endif
+                            }()
                             """
         
         return ExprSyntax(stringLiteral: stringLiteral)

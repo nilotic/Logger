@@ -16,11 +16,13 @@
     #Logger("Message")
      
     // will expand to
-    #if DEBUG
+    {
+        #if DEBUG
         if #available (iOS 15, *) {
             Logger().debug("Message")
         }
-    #endif
+        #endif
+    }()
 ```
 <br>
 <br>

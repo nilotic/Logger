@@ -26,4 +26,5 @@ func foo() {
     #Logger(error.localizedDescription, .debug)
     #Logger(error.localizedDescription, .error)
     #Logger(error.localizedDescription, .fault)
+    
 }

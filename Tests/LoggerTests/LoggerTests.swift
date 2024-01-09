@@ -18,11 +18,13 @@ final class LoggerTests: XCTestCase {
         
         let expandedSource = """
                             func foo() {
-                                 #if DEBUG
-                                     if #available (iOS 15, *) {
-                                         Logger(subsystem: "SwiftUI", category: "Task").info("Message")
-                                     }
-                                 #endif
+                                {
+                                    #if DEBUG
+                                    if #available (iOS 15, *) {
+                                        Logger(subsystem: "SwiftUI", category: "Task").info("Message")
+                                    }
+                                    #endif
+                                }()
                             }
                             """
         
@@ -37,17 +39,19 @@ final class LoggerTests: XCTestCase {
         #if canImport(LoggerMacros)
         let originalSource = """
                             func foo() {
-                                #Logger("Info Message",  .info)
+                                #Logger("Message", .info)
                             }
                             """
         
         let expandedSource = """
                             func foo() {
-                                #if DEBUG
+                                {
+                                    #if DEBUG
                                     if #available (iOS 15, *) {
-                                        Logger().info("Info Message")
+                                        Logger().info("Message")
                                     }
-                                #endif
+                                    #endif
+                                }()
                             }
                             """
         
@@ -68,11 +72,13 @@ final class LoggerTests: XCTestCase {
         
         let expandedSource = """
                             func foo() {
-                                #if DEBUG
+                                {
+                                    #if DEBUG
                                     if #available (iOS 15, *) {
                                         Logger().error("\("(Private) Error Message", privacy: .private)")
                                     }
-                                #endif
+                                    #endif
+                                }()
                             }
                             """
         

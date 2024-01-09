@@ -8,11 +8,13 @@ import SwiftSyntaxMacros
     #Logger("(Private) Error Message", .private, .error)
      
     // will expand to
-    #if DEBUG
+    {
+        #if DEBUG
         if #available (iOS 15, *) {
             Logger().error("\("(Private) Error Message", privacy: .private)")
         }
-    #endif
+        #endif
+    }()
  
     ```
  */
@@ -74,11 +76,13 @@ public struct LoggerPrivacyMacro: ExpressionMacro {
         
         
         let stringLiteral = """
+                            {
                             #if DEBUG
-                                if #available (iOS 15, *) {
-                                    Logger().\(type)(\(logMessage))
-                                }
+                            if #available (iOS 15, *) {
+                                Logger().\(type)(\(logMessage))
+                            }
                             #endif
+                            }()
                             """
         
         return ExprSyntax(stringLiteral: stringLiteral)
