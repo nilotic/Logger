@@ -36,13 +36,13 @@
     
     
     // OSLogType
-    #Logger("Mesage  Info",  .info)
-    #Logger("Message Debug", .debug)
-    #Logger("Message Error", .error)
-    #Logger("Message Fault", .fault)
+    #Logger("Info Message",  .info)
+    #Logger("Debug Message", .debug)
+    #Logger("Error Message", .error)
+    #Logger("Fault Message", .fault)
     
     
     // OSLogPrivacy
-    #Logger("\("(Public)  Error Message", privacy: .public)",  .info)
-    #Logger("\("(Private) Error Message", privacy: .private)", .error)
+    #Logger("(Public)  Debug Message", .public,  .debug)
+    #Logger("(Private) Error Message", .private, .error)
 ```

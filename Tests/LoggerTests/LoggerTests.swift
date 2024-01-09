@@ -66,7 +66,7 @@ final class LoggerTests: XCTestCase {
         #if canImport(LoggerMacros)
         let originalSource = """
                             func foo() {
-                                #Logger("\\("(Public)  Error Message", privacy: .public)", .info)
+                                #Logger("(Private) Error Message", .private, .error)
                             }
                             """
         
@@ -75,7 +75,7 @@ final class LoggerTests: XCTestCase {
                                 {
                                     #if DEBUG
                                     if #available (iOS 15, *) {
-                                        Logger().info("\\("(Public)  Error Message", privacy: .public)")
+                                        Logger().error("\("(Private) Error Message", privacy: .private)")
                                     }
                                     #endif
                                 }()

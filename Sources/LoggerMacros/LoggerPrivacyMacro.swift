@@ -5,13 +5,13 @@ import SwiftSyntaxMacros
 
 /**
     ```swift
-    #Logger("Debug Message", .debug)
+    #Logger("(Private) Error Message", .private, .error)
      
     // will expand to
     {
         #if DEBUG
         if #available (iOS 15, *) {
-            Logger().debug("Debug Message")
+            Logger().error("\("(Private) Error Message", privacy: .private)")
         }
         #endif
     }()
@@ -19,7 +19,7 @@ import SwiftSyntaxMacros
     ```
  */
 
-public struct LoggerTypeMacro: ExpressionMacro {
+public struct LoggerPrivacyMacro: ExpressionMacro {
     
     public static func expansion(of node: some FreestandingMacroExpansionSyntax, in context: some MacroExpansionContext) throws -> ExprSyntax {
         var message = ""
@@ -55,6 +55,9 @@ public struct LoggerTypeMacro: ExpressionMacro {
                 }
                 
             case 1:
+                privacy = element.expression.as(MemberAccessExprSyntax.self)?.declName.baseName.text ?? ""
+                
+            case 2:
                 guard let text = element.expression.as(MemberAccessExprSyntax.self)?.declName.baseName.text else { return }
                 type = text
                 
@@ -70,6 +73,7 @@ public struct LoggerTypeMacro: ExpressionMacro {
             
             return privacy.isEmpty ? "\"\(message)\"" : "\"\\(\"\(message)\", privacy: .\(privacy))\""
         }
+        
         
         let stringLiteral = """
                             {
