@@ -18,23 +18,34 @@ import OSLog
      #Logger("Message", "SwiftUI", "Task", .info)
 
      // will expand to
-     {
-         #if DEBUG
+     #if DEBUG
          if #available (iOS 15, *) {
              Logger(subsystem: "SwiftUI", category: "Task").info("Message")
          }
-         #endif
-     }()
+     #endif
  
      ```
  
  
      # Example #
      ```swift
-      #Logger("Message")
-      #Logger("Message", "SwiftUI")
-      #Logger("Message", "SwiftUI", "Task")
-      #Logger("Message", "SwiftUI", "Task", .info)
+     #Logger("Message")
+     #Logger("Message", "SwiftUI")
+     #Logger("Message", "SwiftUI", "Task")
+     #Logger("Message", "SwiftUI", "Task", .info)
+     
+     
+     // OSLogType
+     #Logger("Info Message",  .info)
+     #Logger("Debug Message", .debug)
+     #Logger("Error Message", .error)
+     #Logger("Fault Message", .fault)
+     
+     
+     // OSLogPrivacy
+     #Logger("(Public)  Debug Message", .public,  .debug)
+     #Logger("(Private) Error Message", .private, .error)
+ 
      ```
 */
 @freestanding(expression)
@@ -55,13 +66,11 @@ public macro Logger(_ message: String, _ subsystem: String = "", _ category: Str
     #Logger("(Private) Error Message", .private, .error)
       
     // will expand to
-    {
-        #if DEBUG
+    #if DEBUG
         if #available (iOS 15, *) {
             Logger().error("\("(Private) Error Message", privacy: .private)")
         }
-        #endif
-    }()
+    #endif
  
     ```
  
@@ -69,9 +78,23 @@ public macro Logger(_ message: String, _ subsystem: String = "", _ category: Str
     # Example #
  
     ```swift
-    // OSLogPrivacy
-    #Logger("(Public)  Debug Message", .public,  .debug)
-    #Logger("(Private) Error Message", .private, .error)
+     #Logger("Message")
+     #Logger("Message", "SwiftUI")
+     #Logger("Message", "SwiftUI", "Task")
+     #Logger("Message", "SwiftUI", "Task", .info)
+     
+     
+     // OSLogType
+     #Logger("Info Message",  .info)
+     #Logger("Debug Message", .debug)
+     #Logger("Error Message", .error)
+     #Logger("Fault Message", .fault)
+     
+     
+     // OSLogPrivacy
+     #Logger("(Public)  Debug Message", .public,  .debug)
+     #Logger("(Private) Error Message", .private, .error)
+ 
     ```
 */
 @freestanding(expression)
@@ -90,13 +113,11 @@ public macro Logger(_ message: OSLogMessage, _ privacy: OSLogPrivacy = .public, 
     #Logger("Debug Message", .debug)
       
     // will expand to
-    {
-        #if DEBUG
+    #if DEBUG
         if #available (iOS 15, *) {
             Logger().debug("Debug Message")
         }
-        #endif
-    }()
+    #endif
  
     ```
  
@@ -104,11 +125,23 @@ public macro Logger(_ message: OSLogMessage, _ privacy: OSLogPrivacy = .public, 
     # Example #
  
     ```swift
-    // OSLogType
-    #Logger("Info Message",  .info)
-    #Logger("Debug Message", .debug)
-    #Logger("Error Message", .error)
-    #Logger("Fault Message", .fault)
+     #Logger("Message")
+     #Logger("Message", "SwiftUI")
+     #Logger("Message", "SwiftUI", "Task")
+     #Logger("Message", "SwiftUI", "Task", .info)
+     
+     
+     // OSLogType
+     #Logger("Info Message",  .info)
+     #Logger("Debug Message", .debug)
+     #Logger("Error Message", .error)
+     #Logger("Fault Message", .fault)
+     
+     
+     // OSLogPrivacy
+     #Logger("(Public)  Debug Message", .public,  .debug)
+     #Logger("(Private) Error Message", .private, .error)
+ 
     ```
 */
 @freestanding(expression)
