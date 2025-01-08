@@ -10,9 +10,7 @@ import SwiftSyntaxMacros
     // will expand to
     {
         #if DEBUG
-        if #available (iOS 15, *) {
-            Logger().debug("Debug Message")
-        }
+        Logger().debug("Debug Message")
         #endif
     }()
  
@@ -24,7 +22,6 @@ public struct LoggerTypeMacro: ExpressionMacro {
     public static func expansion(of node: some FreestandingMacroExpansionSyntax, in context: some MacroExpansionContext) throws -> ExprSyntax {
         var message = ""
         var stringLiteralMessage = ""
-        var privacy = ""
         var type = "debug"
         
         node.argumentList.enumerated().forEach { i, element in
@@ -38,15 +35,7 @@ public struct LoggerTypeMacro: ExpressionMacro {
                             message = literalSegment.content.text
                             
                         case .expressionSegment(let expressionSegment):
-                            for expression in expressionSegment.expressions {
-                                if case .stringSegment(let literalSegment) = expression.as(LabeledExprSyntax.self)?.expression.as(StringLiteralExprSyntax.self)?.segments.first {
-                                    message = literalSegment.content.text
-                                }
-                                
-                                if let text = (expression.as(LabeledExprSyntax.self)?.expression)?.as(MemberAccessExprSyntax.self)?.declName.baseName.text {
-                                    privacy = text
-                                }
-                            }
+                            message = expressionSegment.description
                         }
                     }
                     
@@ -68,15 +57,13 @@ public struct LoggerTypeMacro: ExpressionMacro {
                 message = "\\(\(stringLiteralMessage))"
             }
             
-            return privacy.isEmpty ? "\"\(message)\"" : "\"\\(\"\(message)\", privacy: .\(privacy))\""
+            return "\"\(message)\""
         }
         
         let stringLiteral = """
                             {
                             #if DEBUG
-                            if #available (iOS 15, *) {
-                                Logger().\(type)(\(logMessage))
-                            }
+                            Logger().\(type)(\(logMessage))
                             #endif
                             }()
                             """

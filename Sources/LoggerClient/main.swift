@@ -15,12 +15,6 @@ func foo() {
     #Logger("Fault Message", .fault)
     
     
-    
-    // OSLogPrivacy
-    #Logger("(Public)  Debug Message", .public,  .debug)
-    #Logger("(Private) Error Message", .private, .error)
-    
-    
     let error = URLError(.badURL)
     #Logger(error.localizedDescription,  .info)
     #Logger(error.localizedDescription, .debug)

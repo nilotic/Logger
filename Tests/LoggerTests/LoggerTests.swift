@@ -20,9 +20,7 @@ final class LoggerTests: XCTestCase {
                             func foo() {
                                 {
                                     #if DEBUG
-                                    if #available (iOS 15, *) {
-                                        Logger(subsystem: "SwiftUI", category: "Task").info("Message")
-                                    }
+                                    Logger(subsystem: "SwiftUI", category: "Task").info("Message")
                                     #endif
                                 }()
                             }
@@ -47,36 +45,7 @@ final class LoggerTests: XCTestCase {
                             func foo() {
                                 {
                                     #if DEBUG
-                                    if #available (iOS 15, *) {
-                                        Logger().info("Message")
-                                    }
-                                    #endif
-                                }()
-                            }
-                            """
-        
-        assertMacroExpansion(originalSource, expandedSource: expandedSource, macros: ["Logger": LoggerTypeMacro.self])
-        
-        #else
-        throw XCTSkip("macros are only supported when running tests for the host platform")
-        #endif
-    }
-    
-    func testOSLogPrivacy() throws {
-        #if canImport(LoggerMacros)
-        let originalSource = """
-                            func foo() {
-                                #Logger("(Private) Error Message", .private, .error)
-                            }
-                            """
-        
-        let expandedSource = """
-                            func foo() {
-                                {
-                                    #if DEBUG
-                                    if #available (iOS 15, *) {
-                                        Logger().error("\("(Private) Error Message", privacy: .private)")
-                                    }
+                                    Logger().info("Message")
                                     #endif
                                 }()
                             }

@@ -6,7 +6,7 @@ import CompilerPluginSupport
 
 let package = Package(
     name: "Logger",
-    platforms: [.macOS(.v11), .iOS(.v14), .tvOS(.v14), .watchOS(.v7), .macCatalyst(.v13)],
+    platforms: [.macOS(.v12), .iOS(.v15), .tvOS(.v15), .watchOS(.v8), .macCatalyst(.v14)],
     
     // Products define the executables and libraries a package produces, making them visible to other packages.
     products: [.library(name: "Logger", targets: ["Logger"]),

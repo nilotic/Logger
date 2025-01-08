@@ -10,9 +10,7 @@ import SwiftSyntaxMacros
     // will expand to
     {
         #if DEBUG
-        if #available (iOS 15, *) {
-            Logger(subsystem: "SwiftUI", category: "Task").info("Message")
-        }
+        Logger(subsystem: "SwiftUI", category: "Task").info("Message")
         #endif
     }()
  
@@ -24,7 +22,6 @@ public struct LoggerMacro: ExpressionMacro {
     public static func expansion(of node: some FreestandingMacroExpansionSyntax, in context: some MacroExpansionContext) throws -> ExprSyntax {
         var message = ""
         var stringLiteralMessage = ""
-        var privacy = ""
         var subsystem = ""
         var category = "Default"
         var type = "debug"
@@ -40,15 +37,7 @@ public struct LoggerMacro: ExpressionMacro {
                             message = literalSegment.content.text
                             
                         case .expressionSegment(let expressionSegment):
-                            for expression in expressionSegment.expressions {
-                                if case .stringSegment(let literalSegment) = expression.as(LabeledExprSyntax.self)?.expression.as(StringLiteralExprSyntax.self)?.segments.first {
-                                    message = literalSegment.content.text
-                                }
-                                
-                                if let text = (expression.as(LabeledExprSyntax.self)?.expression)?.as(MemberAccessExprSyntax.self)?.declName.baseName.text {
-                                    privacy = text
-                                }
-                            }
+                            message = expressionSegment.description
                         }
                     }
                     
@@ -78,15 +67,13 @@ public struct LoggerMacro: ExpressionMacro {
                 message = "\\(\(stringLiteralMessage))"
             }
             
-            return privacy.isEmpty ? "\"\(message)\"" : "\"\\(\"\(message)\", privacy: .\(privacy))\""
+            return "\"\(message)\""
         }
         
         let stringLiteral = """
                             {
                             #if DEBUG
-                            if #available (iOS 15, *) {
-                                Logger(subsystem: \"\(subsystem)\", category: \"\(category)\").\(type)(\(logMessage))
-                            }
+                            Logger(subsystem: \"\(subsystem)\", category: \"\(category)\").\(type)(\(logMessage))
                             #endif
                             }()
                             """

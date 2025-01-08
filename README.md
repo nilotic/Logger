@@ -18,9 +18,7 @@
     // will expand to
     {
         #if DEBUG
-        if #available (iOS 15, *) {
-            Logger().debug("Message")
-        }
+        Logger().debug("Message")
         #endif
     }()
 ```
@@ -41,8 +39,4 @@
     #Logger("Error Message", .error)
     #Logger("Fault Message", .fault)
     
-    
-    // OSLogPrivacy
-    #Logger("(Public)  Debug Message", .public,  .debug)
-    #Logger("(Private) Error Message", .private, .error)
 ```
